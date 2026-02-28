@@ -10,20 +10,33 @@
 
 | # | Subject | Year | Projects |
 |---|---|---|---|
-| 1 | [Deep Learning](#1-deep-learning--y3) | Y3 | NLP Assignments, Detectron2, MNIST ONNX |
-| 2 | [Dependable AI](#2-dependable-ai--y3) | Y3 | AnnexML, Integrated Gradients XAI |
-| 3 | [Data Engineering](#3-data-engineering--y3) | Y3 | Book Recommender, Artwork Marketplace |
-| 4 | [Computer Vision](#4-computer-vision--y4) | Y4 | Calibration, Warping, Edge Detection, Colorization |
-| 5 | [Computer Graphics](#5-computer-graphics--y4) | Y4 | Transformations, 2D Game Engine, GLSL Shaders |
-| 6 | [Machine Learning for Economics](#6-machine-learning-for-economics--y4) | Y4 | Regression, Credit Risk, Causal Inference, ATE/CATE |
-| 7 | [Autonomous Systems](#7-autonomous-systems--y4) | Y4 | Path Planning, Particle Filter SLAM |
-| 8 | [Advanced Machine Learning](#8-advanced-machine-learning--y4) | Y4 | Coursework |
-| 9 | [B.Tech Final Project (BTP)](#9-btech-final-project-btp) | Y4 | Table QA + Knowledge Graph Augmentation |
-| 10 | [Independent Projects](#10-independent-projects) | — | RAG Implementation |
+| 1 | [Programming of Computer Systems (PCS-2)](#1-programming-of-computer-systems-pcs-2--y2) | Y2 | SHAREKARO P2P Platform |
+| 2 | [Deep Learning](#2-deep-learning--y3) | Y3 | NLP Assignments, Detectron2, MNIST ONNX, Fashion Style Transfer |
+| 3 | [Dependable AI](#3-dependable-ai--y3) | Y3 | AnnexML, Integrated Gradients XAI |
+| 4 | [Data Engineering](#4-data-engineering--y3) | Y3 | Book Recommender, Artwork Marketplace |
+| 5 | [Computer Vision](#5-computer-vision--y4) | Y4 | Calibration, Warping, Edge Detection, Colorization |
+| 6 | [Computer Graphics](#6-computer-graphics--y4) | Y4 | Transformations, 2D Game Engine, GLSL Shaders |
+| 7 | [Machine Learning for Economics](#7-machine-learning-for-economics--y4) | Y4 | Regression, Credit Risk, Causal Inference, ATE/CATE |
+| 8 | [Autonomous Systems](#8-autonomous-systems--y4) | Y4 | Path Planning, Particle Filter SLAM |
+| 9 | [Advanced Machine Learning](#9-advanced-machine-learning--y4) | Y4 | Coursework |
+| 10 | [B.Tech Final Project (BTP)](#10-btech-final-project-btp) | Y4 | Table QA + Knowledge Graph Augmentation |
+| 11 | [Independent Projects](#11-independent-projects) | — | RAG Implementation |
 
 ---
 
-## 1. Deep Learning · Y3
+## 1. Programming of Computer Systems (PCS-2) · Y2
+
+**Course focus:** Systems programming, networking, low-level communication protocols.
+
+| Project | Description | Tech |
+|---|---|---|
+| [SHAREKARO-P2P-File-Sharing](./Y2_PCS-2/SHAREKARO-P2P-File-Sharing/) ⭐ | P2P messaging and file-transfer platform over Wi-Fi with TCP integrity checks and real-time network monitoring. No central server. | Python, TCP sockets, psutil |
+
+> Source: [github.com/ADIITJ/SHARE-KARO](https://github.com/ADIITJ/SHARE-KARO)
+
+---
+
+## 2. Deep Learning · Y3
 
 **Course focus:** Deep learning architectures, training pipelines, NLP and computer vision applications.
 
@@ -32,10 +45,13 @@
 | [DL-NLP-Assignments](./Y3_Deep-Learning/DL-NLP-Assignments/) | Coursework covering NLU, NLP task training pipelines | Python, PyTorch, NLTK |
 | [Detectron2-Object-Detection](./Y3_Deep-Learning/Detectron2-Object-Detection/) | Object detection using Facebook Research's Detectron2 | Python, Detectron2, PyTorch |
 | [MNIST-ONNX-CPP-Inference](./Y3_Deep-Learning/MNIST-ONNX-CPP-Inference/) | Cross-platform digit classifier: trained in Python, inferred in C++ via ONNX Runtime | C++11, ONNX Runtime, OpenCV, CMake |
+| [DL-Final-Fashion-Style-Transfer](./Y3_Deep-Learning/DL-Final-Fashion-Style-Transfer/) ⭐ | **Course final project.** Cloth segmentation + saliency-weighted neural style transfer for virtual fashion try-on | Python, PyTorch, U-2-Net, VGG-19 |
+
+> Fashion Transfer source: [github.com/ADIITJ/Fashion-Transfer-main](https://github.com/ADIITJ/Fashion-Transfer-main)
 
 ---
 
-## 2. Dependable AI · Y3
+## 3. Dependable AI · Y3
 
 **Course focus:** Robustness, scalability, and explainability in ML systems.
 
@@ -46,7 +62,7 @@
 
 ---
 
-## 3. Data Engineering · Y3
+## 4. Data Engineering · Y3
 
 **Course focus:** Data pipelines, web applications, containerized deployment.
 
@@ -57,7 +73,7 @@
 
 ---
 
-## 4. Computer Vision · Y4
+## 5. Computer Vision · Y4
 
 **Course focus:** Image formation, geometric transformations, feature extraction, deep learning for vision.
 
@@ -70,7 +86,7 @@
 
 ---
 
-## 5. Computer Graphics · Y4
+## 6. Computer Graphics · Y4
 
 **Course focus:** OpenGL rendering pipeline, transformations, shader programming, real-time graphics.
 
@@ -82,7 +98,7 @@
 
 ---
 
-## 6. Machine Learning for Economics · Y4
+## 7. Machine Learning for Economics · Y4
 
 **Course focus:** Econometrics, causal inference, treatment effect estimation, predictive modeling.
 
@@ -96,7 +112,7 @@
 
 ---
 
-## 7. Autonomous Systems · Y4
+## 8. Autonomous Systems · Y4
 
 **Course focus:** Probabilistic robotics, path planning, localization, SLAM.
 
@@ -107,7 +123,7 @@
 
 ---
 
-## 8. Advanced Machine Learning · Y4
+## 9. Advanced Machine Learning · Y4
 
 **Course focus:** Advanced ML theory and methods beyond standard coursework.
 
@@ -117,7 +133,7 @@
 
 ---
 
-## 9. B.Tech Final Project (BTP)
+## 10. B.Tech Final Project (BTP)
 
 **Domain:** Natural Language Processing / Knowledge Graphs / Multi-Agent Systems
 
@@ -125,6 +141,8 @@
 |---|---|---|
 | [BTP_Final](./BTP_TableQA-KnowledgeGraph-Augmentation/BTP_Final/) ⭐ | **Production system.** 6-agent hierarchical architecture answers questions over incomplete tables by augmenting with Wikidata knowledge. **92.9% success rate vs 28.6% baseline (225% improvement)** | Python, Pydantic, asyncio, NetworkX, Gemini API, Wikidata SPARQL, Redis |
 | [BTP_v1-TableQA-Intermediate](./BTP_TableQA-KnowledgeGraph-Augmentation/BTP_v1-TableQA-Intermediate/) | Earlier iteration of the same system, retained for development history | Python |
+
+> Source: [github.com/ADIITJ/kg-table-qa](https://github.com/ADIITJ/kg-table-qa)
 
 ### BTP System Architecture
 ```
@@ -159,7 +177,7 @@ Agent            Agent (Wikidata QIDs)
 
 ---
 
-## 10. Independent Projects
+## 11. Independent Projects
 
 | Project | Description | Tech |
 |---|---|---|
@@ -173,9 +191,9 @@ Agent            Agent (Wikidata QIDs)
 |---|---|
 | ML / DL | PyTorch, TensorFlow, scikit-learn, Detectron2, HuggingFace |
 | NLP | NLTK, sentence-transformers, Gemini API, RAG, SPARQL/Wikidata |
-| Computer Vision | OpenCV, NumPy, ResNet-18, DeepLabV3, VGG16 |
+| Computer Vision | OpenCV, NumPy, ResNet-18, DeepLabV3, VGG-19, U-2-Net |
 | Computer Graphics | PyOpenGL, GLSL, ImGUI, GLFW, pyrr |
-| Systems / Inference | C++11, ONNX Runtime, CMake, OpenMP |
+| Systems / Networking | C++11, ONNX Runtime, CMake, OpenMP, TCP sockets, psutil |
 | Web / Data | Python (Flask, Streamlit), MongoDB, SQLite, Docker |
 | Infrastructure | asyncio, Pydantic, NetworkX, Redis, Git |
 | Causal Inference | causalml, statsmodels, DiD, RDD, meta-learners |
