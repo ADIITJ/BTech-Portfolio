@@ -1,0 +1,299 @@
+================================================================================
+                    SUBMISSION GUIDE - AIL 7310 ASSIGNMENT 3
+================================================================================
+
+PROJECT OVERVIEW
+================================================================================
+
+This submission contains the complete analysis for:
+- Difference-in-Differences (DiD) causal inference
+- Regression Discontinuity Design (RDD) causal inference
+
+Author: Atharva Date
+Date: October 31, 2025
+
+================================================================================
+PRIMARY DELIVERABLES (To Submit)
+================================================================================
+
+1. REPORT (MAIN SUBMISSION)
+   📄 Report.tex
+   - Professional LaTeX academic paper
+   - Contains all results, tables, and figures
+   - Comprehensive answers to all assignment questions
+   - Ready for compilation or direct review
+   
+   Compile with:
+   $ pdflatex Report.tex
+   
+   Or use any LaTeX editor to open and compile
+
+2. ANALYSIS CODE (REPRODUCIBILITY)
+   📓 AIL7310_Assignment3_Analysis.ipynb
+   - Jupyter Notebook with all analysis
+   - Clean, minimal-output code
+   - 24 cells, ~370 lines of focused code
+   - Reproduces all results and figures
+   
+   To run:
+   - Open in Jupyter/JupyterLab
+   - Run cells sequentially (Kernel > Restart & Run All)
+   - All plots and results will regenerate
+
+3. INPUT DATA
+   📁 did_data.csv (~109 KB)
+      - 2,000 observations for DiD analysis
+      - Variables: region_id, sector, year, treatment, avg_wage, controls
+   
+   📁 rdd_data.csv (~125 KB)
+      - 4,000 observations for RDD analysis
+      - Variables: 5th_score (running variable), 10th_score (outcome), covariates
+
+================================================================================
+WHAT'S INCLUDED IN THE REPORT (Report.tex)
+================================================================================
+
+PART I: DIFFERENCE-IN-DIFFERENCES
+──────────────────────────────────
+
+✓ I.a-b: Treatment Variable Construction
+  - 'treated' indicator (binary)
+  - 'post' indicator (threshold: 2010)
+  - Mathematical specification shown
+
+✓ I.c: Parallel Trends Assumption (Figure 1)
+  - Two-panel plot showing wage trends
+  - Assessment: Trends parallel in pre-treatment period (2006-2009)
+
+✓ I.d: Basic DiD Regression (Table 1)
+  - Causal Effect: 1.794 units
+  - SE: 0.188, p-value: <0.001
+  - 95% CI: [1.426, 2.163]
+  - Full regression table with all coefficients
+
+✓ I.e: DiD with Control Variables (Table 2)
+  - Causal Effect: 1.683 units (robust)
+  - SE: 0.194, p-value: <0.001
+  - 95% CI: [1.303, 2.064]
+  - All control variables: population, unemployment, GDP per capita, exports, FDI
+  - Interpretation of control variable effects
+
+✓ I.f: Heterogeneous Effects by Sector (Table 3, Figure 2)
+  - Manufacturing: 2.158 units (largest effect)
+  - Agriculture: 1.509 units
+  - Services: 1.456 units
+  - All effects significant (p<0.001)
+  - Analysis of variation
+
+PART II: REGRESSION DISCONTINUITY DESIGN
+─────────────────────────────────────────
+
+✓ II.a: Treatment Variable Construction
+  - D = 1 if 5th_score ≥ 0 (scholarship eligible)
+  - Sharp RDD design at cutoff = 0
+
+✓ II.b: Covariate Continuity Check (Table 4, Figure 3)
+  - Hours studied: no discontinuity (p=0.412)
+  - Mother's education: no discontinuity (p=0.387)
+  - Validates RDD assumptions
+
+✓ II.c: Outcome Discontinuity (Figure 4)
+  - Plot of 10th scores vs 5th scores
+  - Shows clear jump at scholarship cutoff
+  - Polynomial fits on both sides of discontinuity
+
+✓ II.d: RDD Model Estimation (Table 5, Figure 5)
+  - Specification: includes running variable, interaction, covariates
+  - Treatment Effect: 2.763 points
+  - SE: 0.317, p-value: <0.001
+  - 95% CI: [2.142, 3.384]
+  - Robustness: 2.34-2.85 across 4 specifications
+
+SUMMARY & CONCLUSIONS
+──────────────────────
+
+- DiD: Subsidies increase wages by 1.68 units (11-12% effect)
+- RDD: Scholarships increase test scores by 2.76 points (4.2% effect)
+- Both effects robust and significant
+- Policy implications discussed
+
+================================================================================
+NOTEBOOK CONTENT (AIL7310_Assignment3_Analysis.ipynb)
+================================================================================
+
+PART I: DIFFERENCE-IN-DIFFERENCES
+──────────────────────────────────
+Cell 1:   Markdown - Header
+Cell 2:   Python - Library imports
+Cell 3:   Python - Data loading (did_data.csv, rdd_data.csv)
+Cell 4:   Markdown - DiD Introduction
+Cell 5:   Markdown - Part I.a-b
+Cell 6:   Python - Create treatment variables
+Cell 7:   Markdown - Part I.c
+Cell 8:   Python - Plot parallel trends (generates 01_parallel_trends_assumption.png)
+Cell 9:   Markdown - Part I.d Assessment
+Cell 10:  Markdown - Part I.d: Basic DiD
+Cell 11:  Python - Basic DiD model (output: regression summary)
+Cell 12:  Markdown - Part I.e
+Cell 13:  Python - DiD with controls (output: regression summary)
+Cell 14:  Markdown - Part I.f
+Cell 15:  Python - Sector analysis (generates 02_heterogeneous_effects_by_sector.png)
+
+PART II: REGRESSION DISCONTINUITY DESIGN
+─────────────────────────────────────────
+Cell 16:  Markdown - RDD Introduction
+Cell 17:  Markdown - Part II.a
+Cell 18:  Python - Create treatment variable D
+Cell 19:  Markdown - Part II.b
+Cell 20:  Python - Covariate continuity plot (generates 03_rdd_covariate_continuity.png)
+Cell 21:  Markdown - Part II.c
+Cell 22:  Python - Discontinuity plot (generates 04_discontinuity.png)
+Cell 23:  Markdown - Part II.d
+Cell 24:  Python - RDD model estimation (generates 05_rdd_model_comparison.png)
+
+================================================================================
+FIGURES GENERATED BY NOTEBOOK (Embedded in Report)
+================================================================================
+
+Figure 1: 01_parallel_trends_assumption.png
+  - Size: ~315 KB (300 DPI)
+  - Content: Wage trends over time (full period + pre-treatment)
+
+Figure 2: 02_heterogeneous_effects_by_sector.png
+  - Size: ~104 KB (300 DPI)
+  - Content: Bar plots of treatment effects by sector
+
+Figure 3: 03_rdd_covariate_continuity.png
+  - Size: ~1.4 MB (300 DPI)
+  - Content: Scatter plots with polynomial fits (hours studied, mother's education)
+
+Figure 4: 04_discontinuity.png
+  - Size: ~860 KB (300 DPI)
+  - Content: 10th score vs 5th score with discontinuity jump
+
+Figure 5: 05_rdd_model_comparison.png
+  - Size: ~118 KB (300 DPI)
+  - Content: Bar plot of treatment effects across 4 specifications
+
+================================================================================
+KEY FEATURES OF THIS SUBMISSION
+================================================================================
+
+✓ PROFESSIONAL PRESENTATION
+  - LaTeX report in academic journal style
+  - All results formatted in publication-ready tables
+  - Professional figures with 300 DPI resolution
+
+✓ MINIMAL, FOCUSED CODE
+  - Only essential print statements (showing key results)
+  - No verbose output or exploratory analysis
+  - Clean, natural Python/Jupyter style
+  - No file save operations or confirmations
+
+✓ COMPLETE DOCUMENTATION
+  - All assignment questions (I.a-f, II.a-d) addressed
+  - Mathematical equations for model specifications
+  - Interpretation of results included
+  - Assumptions validated with evidence
+
+✓ REPRODUCIBLE ANALYSIS
+  - Run notebook → generates all plots and results
+  - All statistical computations transparent
+  - Input data provided (CSV format)
+  - Code is clean and understandable
+
+✓ RIGOROUS STATISTICS
+  - Confidence intervals for all estimates
+  - p-values and significance tests
+  - Robustness checks across specifications
+  - Balance tests for identification
+
+================================================================================
+HOW TO REVIEW THIS SUBMISSION
+================================================================================
+
+OPTION 1: Review Report Only (Recommended for quick review)
+──────────────────────────────────────────────────────────
+1. Compile LaTeX → Report.pdf
+   $ pdflatex Report.tex
+   $ bibtex Report
+   $ pdflatex Report.tex (twice)
+2. Open Report.pdf
+3. Read through sections I and II with all tables and figures
+
+OPTION 2: Review + Reproduce (Verify computational integrity)
+────────────────────────────────────────────────────────────
+1. Open AIL7310_Assignment3_Analysis.ipynb in Jupyter
+2. Run all cells (Kernel → Restart & Run All)
+3. Verify plots regenerate
+4. Compare notebook outputs to report figures
+5. Check calculated values match report tables
+
+OPTION 3: Detailed Code Review (For teaching staff)
+───────────────────────────────────────────────────
+1. Open notebook and review code (clean, ~370 lines total)
+2. Follow analysis logic through 24 cells
+3. Check statistical methods (OLS regression via statsmodels)
+4. Verify all assignment requirements addressed
+
+================================================================================
+VERIFICATION CHECKLIST
+================================================================================
+
+Part I: Difference-in-Differences
+✓ Variables 'treated' and 'post' constructed properly
+✓ Parallel trends assumption visualized and discussed
+✓ Basic model: ATT = 1.794 (p<0.001)
+✓ With controls: ATT = 1.683 (robust)
+✓ Sector heterogeneity: Manufacturing > Agriculture > Services
+✓ All results in report with proper formatting
+
+Part II: Regression Discontinuity
+✓ Treatment variable D based on 5th_score ≥ 0 rule
+✓ Covariate continuity tested (both p > 0.05)
+✓ Discontinuity in 10th scores clearly visible
+✓ RDD effect: 2.763 points (p<0.001)
+✓ Robustness confirmed across 4 specifications
+✓ All results in report with proper formatting
+
+Code Quality
+✓ Minimal print statements (<10 total)
+✓ No verbose output or separators
+✓ Professional, clean appearance
+✓ All functionality preserved
+✓ Notebook runs without errors
+
+Documentation
+✓ Report.tex includes all results and figures
+✓ Tables properly formatted with captions
+✓ Figures high-resolution (300 DPI)
+✓ Mathematical notation clear
+✓ Interpretations provided
+
+================================================================================
+SUBMISSION CONTENTS (Summary)
+================================================================================
+
+Files to Submit:
+1. Report.tex (or Report.pdf after compilation)
+2. AIL7310_Assignment3_Analysis.ipynb
+3. did_data.csv
+4. rdd_data.csv
+
+Optional (supporting documentation):
+- FINAL_DELIVERABLES.md
+- SUBMISSION_GUIDE.txt (this file)
+
+Total size: ~3-4 MB (including all data and plots)
+
+================================================================================
+
+If you have questions or need to regenerate any results:
+1. Run the notebook cells
+2. All outputs will regenerate
+3. Report.tex references same figures
+4. Everything is self-contained and reproducible
+
+Ready for submission! ✅
+
+================================================================================

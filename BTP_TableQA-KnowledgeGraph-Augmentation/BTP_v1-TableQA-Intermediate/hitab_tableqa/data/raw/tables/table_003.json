@@ -1,0 +1,24 @@
+{
+  "table_id": "003",
+  "title": "Project Status by Team",
+  "data": [
+    [{"value": "Team"}, {"value": "Project"}, {"value": "Status"}, {"value": "Completion %"}, {"value": "Budget Used"}],
+    [{"value": "Alpha"}, {"value": "Project X"}, {"value": "Active"}, {"value": "75"}, {"value": "150,000"}],
+    [{"value": "Alpha"}, {"value": "Project Y"}, {"value": "Planning"}, {"value": "10"}, {"value": "25,000"}],
+    [{"value": "Beta"}, {"value": "Project Z"}, {"value": "Complete"}, {"value": "100"}, {"value": "200,000"}],
+    [{"value": "Beta"}, {"value": "Project W"}, {"value": "Active"}, {"value": "45"}, {"value": "90,000"}],
+    [{"value": "Gamma"}, {"value": "Project V"}, {"value": "On Hold"}, {"value": "30"}, {"value": "60,000"}],
+    [{"value": "Gamma"}, {"value": "Project U"}, {"value": "Active"}, {"value": "85"}, {"value": "170,000"}]
+  ],
+  "merged_regions": [],
+  "top_root": {
+    "name": "root", 
+    "children": [
+      {"name": "Team", "children": []},
+      {"name": "Project", "children": []},
+      {"name": "Status", "children": []},
+      {"name": "Completion %", "children": []},
+      {"name": "Budget Used", "children": []}
+    ]
+  }
+}

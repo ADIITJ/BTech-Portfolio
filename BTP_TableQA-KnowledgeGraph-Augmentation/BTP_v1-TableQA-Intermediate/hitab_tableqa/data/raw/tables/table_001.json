@@ -1,0 +1,23 @@
+{
+  "table_id": "001",
+  "title": "Sales by Region and Product",
+  "data": [
+    [{"value": "Region"}, {"value": "Product"}, {"value": "Q1 Sales"}, {"value": "Q2 Sales"}],
+    [{"value": "North"}, {"value": "Widget A"}, {"value": "100,000"}, {"value": "120,000"}],
+    [{"value": "North"}, {"value": "Widget B"}, {"value": "80,000"}, {"value": "90,000"}],
+    [{"value": "South"}, {"value": "Widget A"}, {"value": "75,000"}, {"value": "85,000"}],
+    [{"value": "South"}, {"value": "Widget B"}, {"value": "60,000"}, {"value": "70,000"}],
+    [{"value": "East"}, {"value": "Widget A"}, {"value": "90,000"}, {"value": "95,000"}],
+    [{"value": "East"}, {"value": "Widget B"}, {"value": "70,000"}, {"value": "75,000"}]
+  ],
+  "merged_regions": [],
+  "top_root": {
+    "name": "root",
+    "children": [
+      {"name": "Region", "children": []},
+      {"name": "Product", "children": []},
+      {"name": "Q1 Sales", "children": []},
+      {"name": "Q2 Sales", "children": []}
+    ]
+  }
+}

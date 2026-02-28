@@ -1,0 +1,25 @@
+{
+  "table_id": "005",
+  "title": "Customer Orders with Categories",
+  "data": [
+    [{"value": "Customer"}, {"value": "Category"}, {"value": "Product"}, {"value": "Quantity"}, {"value": "Price"}, {"value": "Total"}],
+    [{"value": "John Corp"}, {"value": "Electronics"}, {"value": "Laptop"}, {"value": "5"}, {"value": "1,200"}, {"value": "6,000"}],
+    [{"value": "John Corp"}, {"value": "Electronics"}, {"value": "Mouse"}, {"value": "10"}, {"value": "25"}, {"value": "250"}],
+    [{"value": "ABC Ltd"}, {"value": "Office"}, {"value": "Desk Chair"}, {"value": "15"}, {"value": "200"}, {"value": "3,000"}],
+    [{"value": "ABC Ltd"}, {"value": "Office"}, {"value": "Desk"}, {"value": "8"}, {"value": "400"}, {"value": "3,200"}],
+    [{"value": "Tech Inc"}, {"value": "Electronics"}, {"value": "Monitor"}, {"value": "20"}, {"value": "300"}, {"value": "6,000"}],
+    [{"value": "Tech Inc"}, {"value": "Office"}, {"value": "Printer"}, {"value": "3"}, {"value": "500"}, {"value": "1,500"}]
+  ],
+  "merged_regions": [],
+  "top_root": {
+    "name": "root",
+    "children": [
+      {"name": "Customer", "children": []},
+      {"name": "Category", "children": []},
+      {"name": "Product", "children": []},
+      {"name": "Quantity", "children": []},
+      {"name": "Price", "children": []},
+      {"name": "Total", "children": []}
+    ]
+  }
+}

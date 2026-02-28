@@ -1,0 +1,294 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{multirow}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CSL7360: Computer Vision}
+\fancyhead[R]{Assignment 2}
+\fancyfoot[C]{\thepage}
+
+\title{\textbf{CSL7360: COMPUTER VISION\\Assignment 2\\Image Transformation, Corner Detection, and Epipolar Geometry}}
+\author{\textbf{Name:} Atharva Date\\\textbf{Roll No:} B22AI045}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This assignment implements a complete computer vision pipeline including image transformations, Harris corner detection, SIFT-like keypoint detection and matching, and fundamental matrix estimation using RANSAC. All algorithms are implemented from scratch without using built-in OpenCV functions for the core computations.
+
+\section{Question 1: Image Transformation and Corner Detection (5 Marks)}
+
+\subsection{Preprocessing \& Transformations (2 Marks)}
+
+The Milan Cathedral image was loaded and resized to 250×250 pixels. Three transformations were applied:
+
+\begin{itemize}
+    \item \textbf{Rotation:} 6° clockwise rotation using affine transformation
+    \item \textbf{Scale:} 1.2× scaling with center cropping to maintain 250×250 dimensions  
+    \item \textbf{Noise:} Gaussian noise addition with mean=0 and σ=0.03
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{results/q1_1_transformations.png}
+    \caption{Original image and three transformed versions}
+    \label{fig:transformations}
+\end{figure}
+
+\subsection{Harris Corner Detection Implementation (3 Marks)}
+
+Harris corner detection was implemented from scratch using the following pipeline:
+
+\begin{enumerate}
+    \item Compute image gradients using Sobel operators: $I_x$, $I_y$
+    \item Form structure matrix components: $I_{xx} = I_x^2$, $I_{xy} = I_x I_y$, $I_{yy} = I_y^2$
+    \item Apply Gaussian smoothing with $\sigma = 1.5$
+    \item Compute Harris response: $R = \det(M) - k \cdot \text{trace}(M)^2$ where $k = 0.04$
+    \item Apply thresholding and non-maximum suppression
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{results/q1_2_harris_corners.png}
+    \caption{Harris corner detection results for all transformed images}
+    \label{fig:harris_corners}
+\end{figure}
+
+\textbf{Corner Detection Results:}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Transformation} & \textbf{Corners Detected} \\
+        \midrule
+        Original & 397 \\
+        Rotation (6°) & 289 \\
+        Scale (1.2×) & 419 \\
+        Gaussian Noise & 409 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Number of Harris corners detected per transformation}
+\end{table}
+
+\textbf{Analysis:} The rotation transformation shows the most significant reduction in detected corners (289 vs 397), indicating that Harris corners are sensitive to geometric transformations. Scale transformation actually increased detected corners (419), possibly due to enhanced edge structures at the new scale. Noise addition had minimal impact (409 vs 397), demonstrating Harris detector's relative robustness to noise.
+
+\section{Question 2: Detection \& Descriptor (7 Marks)}
+
+\subsection{Keypoint Detection \& Descriptor Computation (4 Marks)}
+
+A SIFT-like pipeline was implemented from scratch:
+
+\begin{enumerate}
+    \item \textbf{Gaussian Pyramid:} Built with 3 octaves, 3 scales per octave, $\sigma = 1.6$
+    \item \textbf{DoG Pyramid:} Computed differences between consecutive Gaussian-blurred images
+    \item \textbf{Normalization:} DoG responses normalized per octave for consistent thresholding
+    \item \textbf{Keypoint Detection:} Local extrema detection in 3×3×3 neighborhoods across scale space
+    \item \textbf{Descriptor Computation:} 128-dimensional descriptors using:
+    \begin{itemize}
+        \item 16×16 pixel patches around keypoints
+        \item 4×4 cell subdivision (16 cells total)
+        \item 8-bin orientation histograms per cell
+        \item L2 normalization of final descriptor
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{results/q2_1_keypoints.png}
+    \caption{Detected keypoints for all transformed images}
+    \label{fig:keypoints}
+\end{figure}
+
+\textbf{Keypoint Detection Results:}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Transformation} & \textbf{Keypoints Detected} \\
+        \midrule
+        Original & 267 \\
+        Rotation (6°) & 419 \\
+        Scale (1.2×) & 258 \\
+        Gaussian Noise & 280 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Number of keypoints detected per transformation}
+\end{table}
+
+\subsection{Descriptor Matching (3 Marks)}
+
+Descriptor matching was performed using:
+\begin{itemize}
+    \item \textbf{Distance Metric:} Euclidean distance between 128-dimensional descriptors
+    \item \textbf{Lowe's Ratio Test:} Ratio threshold of 0.75 for rejecting ambiguous matches
+    \item \textbf{Matching Strategy:} Nearest neighbor search with ratio validation
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{results/q2_2_matches.png}
+    \caption{Descriptor matches between original and transformed images}
+    \label{fig:matches}
+\end{figure}
+
+\textbf{Matching Results:}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Transformation} & \textbf{Matches Found} \\
+        \midrule
+        Original vs Rotation & 76 \\
+        Original vs Scale & 28 \\
+        Original vs Noise & 160 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Number of descriptor matches per transformation pair}
+\end{table}
+
+\textbf{Analysis:} Noise transformation yielded the highest number of matches (160), demonstrating that additive noise has minimal impact on distinctive image features. Scale transformation had the fewest matches (28), indicating that scaling affects the local patch appearance significantly. Rotation produced moderate matches (76), showing partial robustness to geometric transformations.
+
+\section{Question 3: Fundamental Matrix Estimation \& Epipolar Geometry (8 Marks)}
+
+\subsection{Point Correspondence \& Normalization (2 Marks)}
+
+Point correspondences were extracted from descriptor matches and normalized using:
+
+\begin{equation}
+\mathbf{T} = \begin{bmatrix}
+s & 0 & -s\bar{x} \\
+0 & s & -s\bar{y} \\
+0 & 0 & 1
+\end{bmatrix}
+\end{equation}
+
+where $s = \sqrt{2}/\bar{d}$ and $\bar{d}$ is the average distance from the centroid.
+
+\textbf{Point Correspondence Results:}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Transformation} & \textbf{Point Pairs} \\
+        \midrule
+        Rotation & 76 \\
+        Scale & 28 \\
+        Noise & 160 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Point correspondences extracted and normalized}
+\end{table}
+
+\subsection{Fundamental Matrix Estimation (3 Marks)}
+
+The 8-point algorithm was implemented with the following steps:
+
+\begin{enumerate}
+    \item Construct coefficient matrix $\mathbf{A}$ where each row is $[x_1x_2, x_1y_2, x_1, y_1x_2, y_1y_2, y_1, x_2, y_2, 1]$
+    \item Solve $\mathbf{A}\mathbf{f} = \mathbf{0}$ using SVD
+    \item Reshape solution to 3×3 fundamental matrix
+    \item Enforce rank-2 constraint by setting smallest singular value to zero
+    \item Denormalize using $\mathbf{F} = \mathbf{T}_2^T \mathbf{F}_{norm} \mathbf{T}_1$
+\end{enumerate}
+
+\textbf{Fundamental Matrix Quality:}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Transformation} & \textbf{Rank} & \textbf{Condition Number} \\
+        \midrule
+        Rotation & 2 & $1.82 \times 10^{17}$ \\
+        Scale & 2 & $6.77 \times 10^{18}$ \\
+        Noise & 2 & $8.03 \times 10^{19}$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Fundamental matrix quality metrics}
+\end{table}
+
+\subsection{RANSAC for Robust Estimation (3 Marks)}
+
+RANSAC was implemented with the following parameters:
+\begin{itemize}
+    \item \textbf{Iterations:} 2000
+    \item \textbf{Sample Size:} 8 correspondences per iteration
+    \item \textbf{Distance Metric:} Sampson distance for inlier classification
+    \item \textbf{Threshold:} 1.0 pixel for inlier acceptance
+\end{itemize}
+
+The Sampson distance is computed as:
+\begin{equation}
+d = \frac{(\mathbf{x}_2^T \mathbf{F} \mathbf{x}_1)^2}{||\mathbf{F}^T\mathbf{x}_2||_2^2 + ||\mathbf{F}\mathbf{x}_1||_2^2}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{results/q3_3_epipolar_lines.png}
+    \caption{Epipolar lines drawn for inlier correspondences only}
+    \label{fig:epipolar_lines}
+\end{figure}
+
+\textbf{RANSAC Results:}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Transformation} & \textbf{Total Matches} & \textbf{Inliers} & \textbf{Inlier Ratio} \\
+        \midrule
+        Rotation & 76 & 7 & 0.092 \\
+        Scale & 28 & 9 & 0.321 \\
+        Noise & 160 & 60 & 0.375 \\
+        \bottomrule
+    \end{tabular}
+    \caption{RANSAC inlier statistics}
+\end{table}
+
+\section{Experimental Observations}
+
+\subsection{Threshold Analysis}
+Different Sampson distance thresholds were tested:
+\begin{itemize}
+    \item \textbf{Strict (0.5):} Higher precision, fewer inliers
+    \item \textbf{Moderate (1.0):} Balanced precision-recall
+    \item \textbf{Loose (2.0):} More inliers, potential false positives
+\end{itemize}
+
+\subsection{Transformation Impact}
+\begin{itemize}
+    \item \textbf{Rotation:} Most challenging for feature matching due to orientation changes
+    \item \textbf{Scale:} Moderate difficulty, scale-space detection helps but descriptor computation affected
+    \item \textbf{Noise:} Least impact on overall pipeline, demonstrating robustness of implemented algorithms
+\end{itemize}
+
+\section{Conclusion}
+
+This assignment successfully implemented a complete computer vision pipeline from scratch. Key findings include:
+
+\begin{enumerate}
+    \item Harris corners show sensitivity to geometric transformations, with rotation having the most significant impact
+    \item SIFT-like keypoint detection provides good repeatability across transformations
+    \item Descriptor matching with Lowe's ratio test effectively filters ambiguous matches
+    \item RANSAC significantly improves fundamental matrix estimation robustness
+    \item Noise transformation yielded the best matching performance, while scale transformation was most challenging
+\end{enumerate}
+
+The implementation demonstrates practical understanding of fundamental computer vision algorithms and their behavior under various image transformations.
+
+\textbf{Code Repository:} All implementations are provided in \texttt{cv\_assignment.py} with comprehensive documentation and results saved in the \texttt{results/} directory.
+
+\end{document}

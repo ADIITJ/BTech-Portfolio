@@ -1,0 +1,2 @@
+[03/29 01:47:56 apply_net]: Loading config from configs/densepose_rcnn_R_50_FPN_s1x.yaml
+[03/29 01:47:56 apply_net]: Loading model from https://dl.fbaipublicfiles.com/densepose/densepose_rcnn_R_50_FPN_s1x/165712039/model_final_162be9.pkl

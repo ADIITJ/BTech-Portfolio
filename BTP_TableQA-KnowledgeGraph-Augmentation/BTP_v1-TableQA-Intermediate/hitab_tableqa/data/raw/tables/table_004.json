@@ -1,0 +1,19 @@
+{
+  "table_id": "004",
+  "title": "Monthly Revenue Simple",
+  "data": [
+    [{"value": "Month"}, {"value": "Revenue"}],
+    [{"value": "January"}, {"value": "500,000"}],
+    [{"value": "February"}, {"value": "550,000"}],
+    [{"value": "March"}, {"value": "600,000"}],
+    [{"value": "April"}, {"value": "580,000"}]
+  ],
+  "merged_regions": [],
+  "top_root": {
+    "name": "root",
+    "children": [
+      {"name": "Month", "children": []},
+      {"name": "Revenue", "children": []}
+    ]
+  }
+}

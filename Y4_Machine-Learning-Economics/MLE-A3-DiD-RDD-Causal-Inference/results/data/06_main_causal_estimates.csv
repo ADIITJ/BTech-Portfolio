@@ -1,0 +1,4 @@
+Analysis,Method,Causal_Effect,Std_Error,P_Value,Significant,Sample_Size
+DiD (Basic),Difference-in-Differences,1.7943916666666675,0.18798016193979847,3.794628715519258e-21,Yes,2000
+DiD (With Controls),Difference-in-Differences,1.6833695154924364,0.19417181746384027,8.832482168079759e-18,Yes,2000
+RDD (Recommended),Regression Discontinuity,2.883640510689663,0.3804262617192751,4.313210530825835e-14,Yes,3817

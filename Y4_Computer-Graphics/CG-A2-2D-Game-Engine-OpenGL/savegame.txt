@@ -1,0 +1,1 @@
+{'screen': 0, 'player_lives': 2, 'player_health': 100, 'collect_key_check': [True, False, False, False, True, False, False], 'elapsed_time': 110.06158725}

@@ -1,0 +1,254 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\title{\textbf{AIL 7310: Machine Learning for Economics} \\ 
+       \vspace{0.3cm}
+       \large Assignment 4: Causal Inference with Double-LASSO and Causal Forest}
+\author{Atharva Date \\ Roll No: B22AI045}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report presents a comprehensive analysis of the causal effect of a health program on health outcomes using high-dimensional econometric methods. We employ Double-LASSO with cross-fitting to estimate the Average Treatment Effect (ATE) and Causal Forest to uncover heterogeneous treatment effects. Our findings indicate a significant positive impact of program participation, with treatment effects varying by region and household income level.
+\end{abstract}
+
+\section{Introduction}
+
+The evaluation of health interventions in high-dimensional settings presents unique challenges for causal inference. When many pre-treatment covariates are available, traditional regression methods may suffer from overfitting and produce unreliable estimates. This analysis addresses these challenges using two complementary approaches: Double-LASSO for debiased ATE estimation and Causal Forest for discovering heterogeneous treatment effects.
+
+\subsection{Research Objectives}
+\begin{enumerate}
+    \item Estimate the Average Treatment Effect (ATE) of health program participation on health outcomes using Double-LASSO with cross-fitting
+    \item Compare ATE estimates from Double-LASSO and Causal Forest methodologies
+    \item Identify heterogeneous treatment effects across regions and income levels
+\end{enumerate}
+
+\section{Data and Methodology}
+
+\subsection{Dataset Description}
+The analysis uses a dataset (\texttt{sim\_health.csv}) containing 1,000 observations with 93 variables, including:
+\begin{itemize}
+    \item \textbf{Treatment Variable (D)}: Binary indicator of health program participation (513 treated, 487 control)
+    \item \textbf{Outcome Variable (Y)}: Continuous health outcome measure
+    \item \textbf{Covariates (91 variables)}: Demographics (age, gender, education, income), clinical measures (BMI, blood pressure, cholesterol), health behaviors (smoking, alcohol, physical activity), environmental factors, prior healthcare utilization, and laboratory values
+\end{itemize}
+
+\subsection{Double-LASSO with Cross-Fitting}
+
+The Double-LASSO estimator addresses confounding in high-dimensional settings by using LASSO regression for both the outcome and treatment equations. We implement cross-fitting to avoid overfitting bias:
+
+\begin{enumerate}
+    \item Partition data into $K=5$ folds
+    \item For each fold $k$:
+    \begin{itemize}
+        \item Train LASSO on folds $\neq k$ to predict $Y$ from $X$: $\hat{m}(X) = \mathbb{E}[Y|X]$
+        \item Train LASSO on folds $\neq k$ to predict $D$ from $X$: $\hat{e}(X) = \mathbb{E}[D|X]$
+        \item Compute residuals on fold $k$: $\tilde{Y}_i = Y_i - \hat{m}(X_i)$ and $\tilde{D}_i = D_i - \hat{e}(X_i)$
+    \end{itemize}
+    \item Estimate ATE: $\hat{\theta} = \frac{\sum_i \tilde{D}_i \tilde{Y}_i}{\sum_i \tilde{D}_i^2}$
+\end{enumerate}
+
+\subsection{Causal Forest}
+
+Causal Forest extends random forests to estimate heterogeneous treatment effects by recursively partitioning the covariate space. We use the \texttt{econml} implementation with the following specifications:
+\begin{itemize}
+    \item 1,000 trees with maximum depth of 10
+    \item Minimum 5 samples per leaf
+    \item 5-fold cross-validation
+    \item Gradient Boosting as base learner for nuisance functions
+\end{itemize}
+
+\section{Results}
+
+\subsection{Average Treatment Effect Comparison}
+
+Table~\ref{tab:ate} presents the ATE estimates from both methods:
+
+\begin{table}[H]
+\centering
+\caption{Average Treatment Effect Estimates}
+\label{tab:ate}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Method} & \textbf{ATE} & \textbf{Std. Error} & \textbf{95\% CI Lower} & \textbf{95\% CI Upper} \\
+\midrule
+Double-LASSO & 1.1111 & 0.1170 & 0.8817 & 1.3405 \\
+Causal Forest & 0.9581 & -- & 0.6057 & 1.3106 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Both methods indicate a statistically significant positive treatment effect. The Double-LASSO estimate (1.1111) is slightly higher than the Causal Forest estimate (0.9581), though the confidence intervals overlap substantially. The difference may reflect Causal Forest's non-parametric approach capturing more nuanced treatment heterogeneity.
+
+Figure~\ref{fig:ate_comparison} visualizes the comparison between methods:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{ate_comparison.png}
+\caption{Comparison of ATE estimates with 95\% confidence intervals}
+\label{fig:ate_comparison}
+\end{figure}
+
+\subsection{Cross-Fitting Fold Analysis}
+
+The Double-LASSO cross-fitting procedure yielded the following fold-specific estimates:
+\begin{itemize}
+    \item Fold 1: 1.2403
+    \item Fold 2: 0.9918
+    \item Fold 3: 0.7144
+    \item Fold 4: 1.1051
+    \item Fold 5: 1.5037
+\end{itemize}
+
+The variation across folds (standard deviation: 0.2949) is moderate, suggesting reasonable stability in the estimation procedure.
+
+\subsection{Heterogeneous Treatment Effects by Region}
+
+Table~\ref{tab:region} presents CATE estimates across geographical regions:
+
+\begin{table}[H]
+\centering
+\caption{Conditional Average Treatment Effects by Region}
+\label{tab:region}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Region} & \textbf{CATE} & \textbf{Std. Error} & \textbf{Sample Size} \\
+\midrule
+South   & 0.9407 & 0.0079 & 200 \\
+North   & 0.9523 & 0.0060 & 200 \\
+West    & 0.9587 & 0.0061 & 200 \\
+Central & 0.9689 & 0.0062 & 200 \\
+East    & 0.9701 & 0.0056 & 200 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Regional heterogeneity is relatively modest but statistically meaningful. The East and Central regions exhibit slightly higher treatment effects (0.9701 and 0.9689, respectively) compared to the South (0.9407). This pattern suggests that program effectiveness may be influenced by regional healthcare infrastructure or population characteristics.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{cate_by_region.png}
+\caption{CATE estimates by region with 95\% confidence intervals. Red dashed line indicates overall ATE from Causal Forest.}
+\label{fig:cate_region}
+\end{figure}
+
+\subsection{Heterogeneous Treatment Effects by Household Income}
+
+Table~\ref{tab:income} summarizes CATE estimates across income quintiles:
+
+\begin{table}[H]
+\centering
+\caption{Conditional Average Treatment Effects by Income Quintile}
+\label{tab:income}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Quintile} & \textbf{CATE} & \textbf{Std. Error} & \textbf{Sample Size} \\
+\midrule
+Q1 (Lowest)  & 0.9553 & 0.0063 & 200 \\
+Q2           & 0.9512 & 0.0070 & 200 \\
+Q3           & 0.9569 & 0.0058 & 200 \\
+Q4           & 0.9549 & 0.0067 & 200 \\
+Q5 (Highest) & 0.9725 & 0.0064 & 200 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The highest income quintile (Q5) experiences the largest treatment effect (0.9725), while the second quintile (Q2) shows the smallest effect (0.9512). This U-shaped pattern suggests that both low-income individuals (who may have greatest need) and high-income individuals (who may have better complementary resources) benefit more than middle-income groups.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{cate_by_income.png}
+\caption{CATE estimates by household income quintile with 95\% confidence intervals. Red dashed line indicates overall ATE from Causal Forest.}
+\label{fig:cate_income}
+\end{figure}
+
+\subsection{Treatment Effect Heterogeneity Summary}
+
+The Causal Forest analysis reveals meaningful heterogeneity in treatment effects:
+\begin{itemize}
+    \item \textbf{CATE Range}: [0.4670, 1.3550]
+    \item \textbf{CATE Standard Deviation}: 0.0910
+\end{itemize}
+
+The range of nearly 0.9 units indicates substantial variation in individual-level treatment effects, supporting the use of heterogeneous treatment effect methods beyond simple ATE estimation.
+
+\section{Discussion}
+
+\subsection{Key Findings}
+
+\begin{enumerate}
+    \item \textbf{Positive Program Impact}: Both Double-LASSO and Causal Forest confirm a significant positive effect of health program participation, with ATE estimates of 1.1111 and 0.9581, respectively.
+    
+    \item \textbf{Method Concordance}: The overlapping confidence intervals between methods strengthen confidence in the findings, while modest differences reflect the complementary nature of parametric (Double-LASSO) and non-parametric (Causal Forest) approaches.
+    
+    \item \textbf{Regional Variation}: Eastern and Central regions benefit most from the program, suggesting potential for geographically-targeted interventions.
+    
+    \item \textbf{Income-Based Heterogeneity}: The U-shaped pattern across income quintiles indicates that program design should consider differential needs and complementary resources across the income distribution.
+\end{enumerate}
+
+\subsection{Policy Implications}
+
+The heterogeneous treatment effects uncovered in this analysis have important policy implications:
+
+\begin{itemize}
+    \item \textbf{Targeting}: Resources could be prioritized toward regions (East, Central) where treatment effects are highest
+    \item \textbf{Program Design}: Middle-income groups may benefit from additional support or program modifications
+    \item \textbf{Equity Considerations}: While low-income groups show substantial benefits, their treatment effects are not uniformly highest, suggesting the program effectively reaches across income levels
+\end{itemize}
+
+\subsection{Methodological Considerations}
+
+The Double-LASSO with cross-fitting approach provides valid inference in high-dimensional settings by:
+\begin{itemize}
+    \item Using LASSO for variable selection while avoiding overfitting bias
+    \item Employing cross-fitting to ensure asymptotic normality
+    \item Debiasing through orthogonalization of treatment and outcome residuals
+\end{itemize}
+
+The Causal Forest methodology complements this by:
+\begin{itemize}
+    \item Flexibly modeling treatment effect heterogeneity without pre-specifying subgroups
+    \item Using honest trees to ensure valid inference
+    \item Providing individual-level treatment effect estimates
+\end{itemize}
+
+\section{Conclusion}
+
+This analysis demonstrates the value of modern machine learning methods for causal inference in high-dimensional health economics applications. The Double-LASSO approach provides a robust estimate of the average treatment effect while handling many confounders, and the Causal Forest method reveals meaningful heterogeneity that could inform targeted policy interventions.
+
+The health program shows consistent positive effects across both analytical approaches, with evidence of regional and income-based variation in treatment benefits. These findings suggest opportunities for optimizing program delivery through targeted implementation strategies.
+
+Future research could extend this analysis by:
+\begin{enumerate}
+    \item Investigating mechanisms driving regional and income-based heterogeneity
+    \item Examining longer-term treatment effects and dynamics
+    \item Incorporating cost-effectiveness analysis for optimal resource allocation
+    \item Exploring additional dimensions of heterogeneity (e.g., by baseline health status or demographic characteristics)
+\end{enumerate}
+
+\section*{Technical Appendix}
+
+\subsection*{Software and Implementation}
+All analyses were conducted in Python 3.13 using:
+\begin{itemize}
+    \item \texttt{scikit-learn} 1.6.1 for LASSO regression
+    \item \texttt{econml} 0.15.2 for Causal Forest implementation
+    \item \texttt{pandas} 2.2.3 for data manipulation
+    \item \texttt{matplotlib} 3.10.0 and \texttt{seaborn} 0.13.2 for visualization
+\end{itemize}
+
+\subsection*{Reproducibility}
+All code and data are available in the assignment directory. The analysis can be replicated by executing \texttt{analysis.ipynb}.
+
+\end{document}

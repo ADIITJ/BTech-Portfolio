@@ -1,0 +1,22 @@
+{
+  "table_id": "002", 
+  "title": "Employee Department Summary",
+  "data": [
+    [{"value": "Department"}, {"value": "Employee Count"}, {"value": "Average Salary"}, {"value": "Budget"}],
+    [{"value": "Engineering"}, {"value": "25"}, {"value": "95,000"}, {"value": "2,375,000"}],
+    [{"value": "Marketing"}, {"value": "15"}, {"value": "70,000"}, {"value": "1,050,000"}],
+    [{"value": "Sales"}, {"value": "20"}, {"value": "80,000"}, {"value": "1,600,000"}],
+    [{"value": "HR"}, {"value": "8"}, {"value": "65,000"}, {"value": "520,000"}],
+    [{"value": "Finance"}, {"value": "12"}, {"value": "85,000"}, {"value": "1,020,000"}]
+  ],
+  "merged_regions": [],
+  "top_root": {
+    "name": "root",
+    "children": [
+      {"name": "Department", "children": []},
+      {"name": "Employee Count", "children": []},
+      {"name": "Average Salary", "children": []},
+      {"name": "Budget", "children": []}
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlflow
+  template:
+    metadata:
+      labels:
+        app: mlflow
+    spec:
+      containers:
+      - name: mlflow
+        image: mlflow/mlflow
+        command: ["mlflow", "server", 
+                  "--host", "0.0.0.0", 
+                  "--backend-store-uri", "postgresql://user:password@postgres/mlapp",
+                  "--default-artifact-root", "s3://mlflow-artifacts/"]
+        ports:
+        - containerPort: 5000
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          value: "YOUR_KEY"
+        - name: AWS_SECRET_ACCESS_KEY
+          value: "YOUR_SECRET"

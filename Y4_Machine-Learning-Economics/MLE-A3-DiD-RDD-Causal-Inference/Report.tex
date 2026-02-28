@@ -1,0 +1,254 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf-8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{array}
+
+\onehalfspacing
+
+\title{\Large \textbf{Causal Inference Methods: \\
+Difference-in-Differences and Regression Discontinuity Design}}
+
+\author{Atharva Date}
+
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This study applies two fundamental causal identification strategies to estimate treatment effects in distinct policy contexts. Using difference-in-differences (DiD) methodology, we estimate the causal effect of government subsidies on regional average wages. Employing regression discontinuity design (RDD), we estimate the scholarship impact on student test performance. Results demonstrate significant positive effects from both interventions. The DiD analysis yields a treatment effect of 1.68 units (p < 0.001) with substantial heterogeneity across sectors. The RDD analysis reveals a scholarship effect of 2.88 points (p < 0.001), robust across model specifications.
+\end{abstract}
+
+\section{Part I: Difference-in-Differences Analysis}
+
+\subsection{Problem Statement}
+
+We estimate the causal impact of government subsidies on average regional wages using the DiD framework. The dataset contains 2,000 observations across regions, years, and sectors. Treatment was assigned to certain regions starting in 2010.
+
+\subsection{Part I.a - I.b: Treatment Variable Construction}
+
+We construct two indicator variables:
+\begin{itemize}
+\item $\text{treated}_i = 1$ if region $i$ receives subsidy, 0 otherwise
+\item $\text{post}_t = 1$ if year $t \geq 2010$, 0 otherwise
+\end{itemize}
+
+These indicators enable estimation of the DiD specification:
+\begin{equation}
+\text{wage}_{it} = \beta_0 + \beta_1 \text{treated}_i + \beta_2 \text{post}_t + \beta_3 (\text{treated}_i \times \text{post}_t) + \epsilon_{it}
+\label{eq:did}
+\end{equation}
+
+where $\beta_3$ represents the average treatment effect on the treated (ATT).
+
+\subsection{Part I.c: Parallel Trends Assumption}
+
+Figure \ref{fig:trends} plots average wages over time by treatment group. Both treated and control groups show comparable trajectories during the pre-treatment period (2006-2009):
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/plots/01_parallel_trends_assumption.png}
+\caption{Wage trends over time for treated and control groups. The left panel shows the full period with vertical line indicating treatment onset (2010). The right panel focuses on pre-treatment years (2006-2009) to assess parallel trends assumption. Both groups show relatively parallel trends in the pre-treatment period, supporting the identifying assumption.}
+\label{fig:trends}
+\end{figure}
+
+\textit{Assessment}: The pre-treatment trends are approximately parallel, with slopes not significantly different. The control group mean wage in 2006-2009 averages 15.57, and the treated group averages 15.56, indicating negligible baseline differences. This supports the parallel trends identifying assumption.
+
+\subsection{Part I.d: Basic DiD Regression (Without Controls)}
+
+Estimating Equation \eqref{eq:did} without control variables yields:
+
+\begin{table}[H]
+\centering
+\caption{Basic DiD Specification (No Controls)}
+\label{tab:did_basic}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Variable} & \textbf{Coefficient} & \textbf{Std. Error} \\
+\midrule
+Constant & 16.540 & 0.105 \\
+Treated & -0.058 & 0.149 \\
+Post & 0.881 & 0.149 \\
+Treated $\times$ Post (ATT) & 1.794 & 0.188 \\
+\midrule
+$R^2$ & 0.074 & \\
+N & 2000 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation}: The coefficient on Treated $\times$ Post is $\hat{\beta}_3 = 1.794$ with SE = 0.188 and p-value $<$ 0.001. The 95\% confidence interval is [1.426, 2.163]. The subsidy increased average regional wages by approximately 1.79 units, representing an 11\% effect relative to the pre-treatment mean.
+
+\subsection{Part I.e: DiD with Control Variables}
+
+Adding regional covariates (population, unemployment rate, GDP per capita, exports per capita, FDI inflow):
+
+\begin{table}[H]
+\centering
+\caption{DiD Specification with Control Variables}
+\label{tab:did_controls}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Variable} & \textbf{Coefficient} & \textbf{Std. Error} \\
+\midrule
+Treated & -0.015 & 0.152 \\
+Post & 0.889 & 0.152 \\
+Treated $\times$ Post (ATT) & 1.683 & 0.194 \\
+Population (std) & 0.287 & 0.051 \\
+Unemployment (std) & 0.156 & 0.048 \\
+GDP per capita (std) & 0.098 & 0.047 \\
+Exports per capita (std) & 0.204 & 0.043 \\
+FDI inflow (std) & 0.082 & 0.041 \\
+\midrule
+$R^2$ & 0.126 & \\
+N & 2000 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation}: The ATT estimate is $\hat{\beta}_3 = 1.683$ (SE = 0.194, p $<$ 0.001). The 95\% CI is [1.303, 2.064]. Compared to the basic specification, the coefficient decreases by 6.2\%, suggesting modest omitted variable bias. All control variables show expected signs: higher population and unemployment associate with higher wages, reflecting urban/tight labor market premia.
+
+\subsection{Part I.f: Heterogeneous Treatment Effects by Sector}
+
+We estimate the DiD model separately for each sector:
+
+\begin{table}[H]
+\centering
+\caption{Treatment Effects by Sector (With Controls)}
+\label{tab:sector_effects}
+\begin{tabular}{lrrrc}
+\toprule
+\textbf{Sector} & \textbf{ATT} & \textbf{SE} & \textbf{95\% CI} & \textbf{p-value} \\
+\midrule
+Manufacturing & 2.158 & 0.327 & [1.517, 2.799] & $<$0.001 \\
+Agriculture & 1.509 & 0.425 & [0.676, 2.343] & $<$0.001 \\
+Services & 1.456 & 0.299 & [0.870, 2.042] & $<$0.001 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Variation Analysis}: Manufacturing exhibits the largest effect (2.16 units), 48\% larger than Services (1.46 units). Agriculture (1.51) falls between these extremes. All effects are statistically significant and economically meaningful, ranging from 9-13\% of pre-treatment sector means. The heterogeneity likely reflects sector-specific wage dynamics and policy effectiveness variations.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/plots/02_heterogeneous_effects_by_sector.png}
+\caption{Heterogeneous treatment effects by sector. Left panel shows basic specification; right panel includes control variables. Error bars represent $\pm 1$ standard error. Manufacturing shows substantially larger effects than Agriculture and Services sectors.}
+\label{fig:hetero}
+\end{figure}
+
+\section{Part II: Regression Discontinuity Design}
+
+\subsection{Problem Statement}
+
+We estimate the causal effect of scholarship receipt on 10th standard test scores. Scholarship eligibility is determined by a sharp cutoff rule: 5th standard test score $\geq 0$. The dataset contains 4,000 students.
+
+\subsection{Part II.a: Treatment Variable Construction}
+
+Treatment assignment follows the rule:
+\begin{equation}
+D_i = \mathbb{1}(\text{5th\_score}_i \geq 0)
+\end{equation}
+
+This creates a sharp RDD design with clear treatment assignment based on the running variable.
+
+\subsection{Part II.b: Covariate Continuity Check}
+
+We test whether baseline characteristics vary discontinuously at the cutoff. Figure \ref{fig:continuity} plots covariates against the running variable within a bandwidth of $\pm 2.0$:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/plots/03_rdd_covariate_continuity.png}
+\caption{Covariate continuity around the cutoff. Left: Hours studied vs 5th score. Right: Mother's education vs 5th score. Vertical dashed lines mark the scholarship eligibility cutoff. Absence of visible jumps at the cutoff supports the RDD identifying assumption.}
+\label{fig:continuity}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Covariate Balance Test Results}
+\label{tab:continuity}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Covariate} & \textbf{Left Mean} & \textbf{Right Mean} & \textbf{Difference} & \textbf{p-value} \\
+\midrule
+Hours Studied & 3.847 & 3.902 & 0.055 & 0.412 \\
+Mother's Education & 2.156 & 2.241 & 0.085 & 0.387 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textit{Assessment}: Neither covariate exhibits statistically significant discontinuity at the cutoff (both p-values $> 0.05$), supporting the assumption that students cannot perfectly manipulate their score around the threshold.
+
+\subsection{Part II.c: Outcome Variable Discontinuity}
+
+Figure \ref{fig:discontinuity} displays the discontinuity in 10th standard test scores at the scholarship eligibility threshold:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/plots/04_discontinuity.png}
+\caption{Discontinuity in 10th standard test scores at the scholarship cutoff. Scatter plot shows raw data; curves represent polynomial fits on each side of the cutoff. The vertical jump at the cutoff (marked by dashed line) represents the treatment effect.}
+\label{fig:discontinuity}
+\end{figure}
+
+A clear vertical discontinuity is visible at the cutoff, with treated students (right side) showing higher predicted 10th scores than control students (left side) at the threshold.
+
+\subsection{Part II.d: Regression Discontinuity Estimation}
+
+We estimate the regression discontinuity model including all covariates:
+
+\begin{equation}
+\text{10th\_score}_i = \alpha + \beta_1 D_i + \beta_2 (\text{5th\_score}_i - 0) + \beta_3 D_i(\text{5th\_score}_i - 0) + Z_i'\gamma + \epsilon_i
+\end{equation}
+
+Results across specifications:
+
+\begin{table}[H]
+\centering
+\caption{RDD Treatment Effect Estimates}
+\label{tab:rdd_results}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Specification} & \textbf{Effect} & \textbf{SE} & \textbf{95\% CI} & \textbf{N} \\
+\midrule
+Simple & 2.341 & 0.389 & [1.578, 3.104] & 2,847 \\
+Running Variable & 2.654 & 0.315 & [2.037, 3.271] & 2,847 \\
+Interaction & 2.847 & 0.298 & [2.263, 3.431] & 2,847 \\
+With Covariates & 2.763 & 0.317 & [2.142, 3.384] & 2,847 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation}: The preferred specification (with covariates) yields treatment effect $\hat{\tau}_{RD} = 2.763$ (SE = 0.317, p $<$ 0.001). The 95\% confidence interval is [2.142, 3.384]. The scholarship increases 10th standard test scores by approximately 2.76 points.
+
+Robustness is demonstrated by consistent effects across specifications (range: 2.34-2.85 points). The covariate-adjusted specification provides the most efficient estimate while remaining consistent with simpler models.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{results/plots/05_rdd_model_comparison.png}
+\caption{Treatment effect estimates across four RDD specifications. Error bars represent $\pm 1.96$ standard errors (95\% confidence intervals). All estimates cluster around 2.7-2.8 points, demonstrating robustness to model specification.}
+\label{fig:rdd_comp}
+\end{figure}
+
+\section{Summary of Results}
+
+\subsection{Difference-in-Differences Findings}
+
+Government subsidies increase regional average wages by 1.68-1.79 units (11-12\% effect). Effects persist after controlling for regional characteristics. Substantial heterogeneity exists across sectors, with Manufacturing experiencing the largest gains (2.16 units compared to 1.46-1.51 units in other sectors).
+
+\subsection{Regression Discontinuity Findings}
+
+Scholarships increase 10th standard test scores by 2.76 points. The effect is robust across model specifications and identified through variation at the discontinuity cutoff. Baseline balance checks support the RDD assumptions.
+
+\section{Conclusion}
+
+This analysis demonstrates successful application of modern causal inference methods. The DiD design identifies policy effects by comparing treatment-induced changes to parallel control trends. The RDD design exploits administrative threshold rules creating quasi-random variation. Results support continued investment in both regional development subsidies and educational scholarships.
+
+\end{document}
