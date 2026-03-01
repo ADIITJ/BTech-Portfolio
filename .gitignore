@@ -1,0 +1,57 @@
+# Python
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.venv/
+**/venv/
+**/env/
+**/*.egg-info/
+**/.eggs/
+
+# Jupyter
+**/.ipynb_checkpoints/
+
+# Build artifacts
+**/build/
+**/dist/
+**/_skbuild/
+**/CMakeFiles/
+**/CMakeCache.txt
+
+# Test/lint caches
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+
+# macOS
+**/.DS_Store
+**/._*
+
+# Large data directories (download separately)
+**/data/coco/
+**/data/mnist/
+**/data/lfw/
+
+# Model checkpoints and weights (too large for git)
+**/*.pt
+**/*.pth
+**/*.onnx
+**/*.h5
+**/*.pkl
+
+# Virtual environments (Node, etc.)
+**/node_modules/
+
+# IDE
+**/.vscode/
+**/.idea/
+
+# Logs
+**/*.log
+**/wandb/
+**/mlruns/
+
+# Archives (already committed as reference if needed)
+# Uncomment if you don't want zips tracked:
+# **/*.zip

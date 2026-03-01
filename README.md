@@ -11,16 +11,17 @@
 | # | Subject | Year | Projects |
 |---|---|---|---|
 | 1 | [Programming of Computer Systems (PCS-2)](#1-programming-of-computer-systems-pcs-2--y2) | Y2 | SHAREKARO P2P Platform |
-| 2 | [Deep Learning](#2-deep-learning--y3) | Y3 | NLP Assignments, Detectron2, MNIST ONNX, Fashion Style Transfer |
-| 3 | [Dependable AI](#3-dependable-ai--y3) | Y3 | AnnexML, Integrated Gradients XAI |
-| 4 | [Data Engineering](#4-data-engineering--y3) | Y3 | Book Recommender, Artwork Marketplace |
-| 5 | [Computer Vision](#5-computer-vision--y4) | Y4 | Calibration, Warping, Edge Detection, Colorization |
-| 6 | [Computer Graphics](#6-computer-graphics--y4) | Y4 | Transformations, 2D Game Engine, GLSL Shaders |
-| 7 | [Machine Learning for Economics](#7-machine-learning-for-economics--y4) | Y4 | Regression, Credit Risk, Causal Inference, ATE/CATE |
-| 8 | [Autonomous Systems](#8-autonomous-systems--y4) | Y4 | Path Planning, Particle Filter SLAM |
-| 9 | [Advanced Machine Learning](#9-advanced-machine-learning--y4) | Y4 | Coursework |
-| 10 | [B.Tech Final Project (BTP)](#10-btech-final-project-btp) | Y4 | Table QA + Knowledge Graph Augmentation |
-| 11 | [Independent Projects](#11-independent-projects) | — | RAG Implementation |
+| 2 | [Pattern Recognition & Machine Learning (PRML)](#2-pattern-recognition--machine-learning-prml--y2) | Y2 | Decision Trees, Perceptron, LDA, K-Means, SVM, MLP |
+| 3 | [Deep Learning](#3-deep-learning--y3) | Y3 | NLP Assignments, Detectron2, MNIST ONNX, Fashion Style Transfer |
+| 4 | [Dependable AI](#4-dependable-ai--y3) | Y3 | AnnexML, Integrated Gradients XAI |
+| 5 | [Data Engineering](#5-data-engineering--y3) | Y3 | Book Recommender, Artwork Marketplace |
+| 6 | [Computer Vision](#6-computer-vision--y4) | Y4 | Calibration, Warping, Edge Detection, Colorization |
+| 7 | [Computer Graphics](#7-computer-graphics--y4) | Y4 | Transformations, 2D Game Engine, GLSL Shaders |
+| 8 | [Machine Learning for Economics](#8-machine-learning-for-economics--y4) | Y4 | Regression, Credit Risk, Causal Inference, ATE/CATE |
+| 9 | [Autonomous Systems](#9-autonomous-systems--y4) | Y4 | Path Planning, Particle Filter SLAM |
+| 10 | [Advanced Machine Learning](#10-advanced-machine-learning--y4) | Y4 | Coursework |
+| 11 | [B.Tech Final Project (BTP)](#11-btech-final-project-btp) | Y4 | Table QA + Knowledge Graph Augmentation |
+| 12 | [Independent Projects](#12-independent-projects) | — | RAG Implementation |
 
 ---
 
@@ -36,7 +37,23 @@
 
 ---
 
-## 2. Deep Learning · Y3
+## 2. Pattern Recognition & Machine Learning (PRML) · Y2
+
+**Course focus:** Classical ML algorithms built from scratch — decision theory, linear models, kernel methods, neural networks.
+
+> Assignment 2 is not present in this repository.
+
+| Project | Description | Tech |
+|---|---|---|
+| [PRML-A1-Decision-Trees-Linear-Regression](./Y2_PRML/PRML-A1-Decision-Trees-Linear-Regression/) | Decision Tree (from scratch) on Titanic + Simple & Multiple Linear Regression | Python, NumPy, pandas |
+| [PRML-A3-Perceptron-PCA-Face-Recognition](./Y2_PRML/PRML-A3-Perceptron-PCA-Face-Recognition/) | Perceptron learning + PCA-KNN face recognition on LFW dataset | Python, scikit-learn |
+| [PRML-A4-LDA-Naive-Bayes](./Y2_PRML/PRML-A4-LDA-Naive-Bayes/) | LDA from scratch (Sw, Sb, eigenvectors) + Gaussian/Multinomial Naive Bayes | Python, NumPy |
+| [PRML-A5-KMeans-Clustering-SVM](./Y2_PRML/PRML-A5-KMeans-Clustering-SVM/) | K-Means image compression (custom) + SVM with Linear/Poly/RBF kernels | Python, scikit-learn, OpenCV |
+| [PRML-A6-MLP-Neural-Networks](./Y2_PRML/PRML-A6-MLP-Neural-Networks/) | MLP with/without ReLU on MNIST — compares linear vs. activated networks | Python, PyTorch |
+
+---
+
+## 3. Deep Learning · Y3
 
 **Course focus:** Deep learning architectures, training pipelines, NLP and computer vision applications.
 
@@ -51,7 +68,7 @@
 
 ---
 
-## 3. Dependable AI · Y3
+## 4. Dependable AI · Y3
 
 **Course focus:** Robustness, scalability, and explainability in ML systems.
 
@@ -62,7 +79,7 @@
 
 ---
 
-## 4. Data Engineering · Y3
+## 5. Data Engineering · Y3
 
 **Course focus:** Data pipelines, web applications, containerized deployment.
 
@@ -73,7 +90,7 @@
 
 ---
 
-## 5. Computer Vision · Y4
+## 6. Computer Vision · Y4
 
 **Course focus:** Image formation, geometric transformations, feature extraction, deep learning for vision.
 
@@ -86,7 +103,7 @@
 
 ---
 
-## 6. Computer Graphics · Y4
+## 7. Computer Graphics · Y4
 
 **Course focus:** OpenGL rendering pipeline, transformations, shader programming, real-time graphics.
 
@@ -98,7 +115,7 @@
 
 ---
 
-## 7. Machine Learning for Economics · Y4
+## 8. Machine Learning for Economics · Y4
 
 **Course focus:** Econometrics, causal inference, treatment effect estimation, predictive modeling.
 
@@ -112,7 +129,7 @@
 
 ---
 
-## 8. Autonomous Systems · Y4
+## 9. Autonomous Systems · Y4
 
 **Course focus:** Probabilistic robotics, path planning, localization, SLAM.
 
@@ -123,7 +140,7 @@
 
 ---
 
-## 9. Advanced Machine Learning · Y4
+## 10. Advanced Machine Learning · Y4
 
 **Course focus:** Advanced ML theory and methods beyond standard coursework.
 
@@ -133,7 +150,7 @@
 
 ---
 
-## 10. B.Tech Final Project (BTP)
+## 11. B.Tech Final Project (BTP)
 
 **Domain:** Natural Language Processing / Knowledge Graphs / Multi-Agent Systems
 
@@ -177,7 +194,7 @@ Agent            Agent (Wikidata QIDs)
 
 ---
 
-## 11. Independent Projects
+## 12. Independent Projects
 
 | Project | Description | Tech |
 |---|---|---|
