@@ -1,4 +1,4 @@
-# BTech Portfolio — Aashish Date (B22AI045)
+# BTech Portfolio — Atharva Date (B22AI045)
 
 **Institution:** Indian Institute of Technology Jodhpur
 **Department:** Computer Science & Engineering — Artificial Intelligence
