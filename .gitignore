@@ -55,3 +55,6 @@
 # Archives (already committed as reference if needed)
 # Uncomment if you don't want zips tracked:
 # **/*.zip
+
+# Oversized files (>100 MB — GitHub limit)
+Y4_Computer-Vision/CV-A1-Camera-Calibration/CV_1.pdf
