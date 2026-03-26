@@ -8,3 +8,4 @@
 | [CG-A1-Geometric-Transformations](./CG-A1-Geometric-Transformations/) | Assignment | 2D/3D transformation matrices, camera model |
 | [CG-A2-2D-Game-Engine-OpenGL](./CG-A2-2D-Game-Engine-OpenGL/) | Assignment | Interactive 2D game engine — PyOpenGL, ImGUI, GLFW |
 | [CG-A3-GLSL-Shader-Programming](./CG-A3-GLSL-Shader-Programming/) | Assignment | 3D stacker game with programmable vertex/fragment shaders (GLSL) |
+| [Lectures](./Lectures/) | Course Material | 20 lecture PDFs covering the full CG pipeline |

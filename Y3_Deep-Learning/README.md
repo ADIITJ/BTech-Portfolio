@@ -9,3 +9,5 @@
 | [Detectron2-Object-Detection](./Detectron2-Object-Detection/) | Lab | Object detection using Facebook Research Detectron2 |
 | [MNIST-ONNX-CPP-Inference](./MNIST-ONNX-CPP-Inference/) | Lab | MNIST classifier in C++ via ONNX Runtime |
 | [DL-Final-Fashion-Style-Transfer](./DL-Final-Fashion-Style-Transfer/) ⭐ | **Final Project** | Cloth segmentation + saliency-weighted neural style transfer · [GitHub](https://github.com/ADIITJ/Fashion-Transfer-main) |
+| [DL-Labs](./DL-Labs/) | Lab Sessions | 9 hands-on lab notebooks covering core DL concepts progressively |
+| [DL-Lectures](./DL-Lectures/) | Course Material | Full compiled class notes (~31 MB) |

@@ -72,7 +72,9 @@ BTech-Portfolio/
 │   ├── DL-NLP-Assignments/
 │   ├── Detectron2-Object-Detection/
 │   ├── MNIST-ONNX-CPP-Inference/       ← has nested .git
-│   └── DL-Final-Fashion-Style-Transfer/ ← GitHub: ADIITJ/Fashion-Transfer-main
+│   ├── DL-Final-Fashion-Style-Transfer/ ← GitHub: ADIITJ/Fashion-Transfer-main
+│   ├── DL-Labs/                        ← 9 lab notebooks
+│   └── DL-Lectures/                    ← full class notes PDF (~31 MB)
 │
 ├── Y3_Dependable-AI/
 │   ├── README.md
@@ -89,13 +91,15 @@ BTech-Portfolio/
 │   ├── CV-A1-Camera-Calibration/
 │   ├── CV-A2-Perspective-Warping/
 │   ├── CV-A3-Edge-Detection-Feature-Extraction/
-│   └── CV-Final-Image-Colorization/    ← has nested .git
+│   ├── CV-Final-Image-Colorization/    ← has nested .git
+│   └── Lectures/                       ← 19 lecture PDFs
 │
 ├── Y4_Computer-Graphics/
 │   ├── README.md
 │   ├── CG-A1-Geometric-Transformations/
 │   ├── CG-A2-2D-Game-Engine-OpenGL/
-│   └── CG-A3-GLSL-Shader-Programming/
+│   ├── CG-A3-GLSL-Shader-Programming/
+│   └── Lectures/                       ← 20 lecture PDFs
 │
 ├── Y4_Machine-Learning-Economics/
 │   ├── README.md
@@ -112,7 +116,16 @@ BTech-Portfolio/
 │
 ├── Y4_Advanced-Machine-Learning/
 │   ├── README.md
-│   └── Advanced-ML-Coursework/         ← has nested .git inside advanced-ML/
+│   ├── Advanced-ML-Coursework/         ← has nested .git inside advanced-ML/
+│   └── Readings/                       ← 10 key papers and lecture notes
+│
+├── Y4_NLU/
+│   ├── README.md
+│   └── Lectures/                       ← 2 lecture PDFs (sentiment, meaning vectors)
+│
+├── Y4_Smart-Product-Design/
+│   ├── README.md
+│   └── First-Aid-AI/                   ← edge AI sports injury pipeline
 │
 ├── BTP_TableQA-KnowledgeGraph-Augmentation/
 │   ├── BTP_Final/                      ← has nested .git · GitHub: ADIITJ/kg-table-qa
@@ -274,6 +287,8 @@ At the bottom of `README.md`, add new languages/frameworks to the relevant row.
 | Machine Learning for Economics (MLE) | `Y4_Machine-Learning-Economics` | Y4 |
 | Autonomous Systems | `Y4_Autonomous-Systems` | Y4 |
 | Advanced Machine Learning | `Y4_Advanced-Machine-Learning` | Y4 |
+| Natural Language Understanding (NLU) | `Y4_NLU` | Y4 |
+| Smart Product Design | `Y4_Smart-Product-Design` | Y4 |
 | B.Tech Project (BTP) | `BTP_TableQA-KnowledgeGraph-Augmentation` | Y4 |
 | Independent / Personal | `Independent_{Description}` | — |
 | Unknown / Unsorted | `Unsorted/` | — |
@@ -308,5 +323,7 @@ Email:    aashishdate@proliantdatallc.com
 | 8. ML for Economics · Y4 | `#8-machine-learning-for-economics--y4` |
 | 9. Autonomous Systems · Y4 | `#9-autonomous-systems--y4` |
 | 10. Advanced ML · Y4 | `#10-advanced-machine-learning--y4` |
-| 11. BTP | `#11-btech-final-project-btp` |
-| 12. Independent | `#12-independent-projects` |
+| 11. NLU · Y4 | `#11-natural-language-understanding-nlu--y4` |
+| 12. Smart Product Design · Y4 | `#12-smart-product-design--y4` |
+| 13. BTP | `#13-btech-final-project-btp` |
+| 14. Independent | `#14-independent-projects` |

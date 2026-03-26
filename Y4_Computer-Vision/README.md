@@ -9,3 +9,4 @@
 | [CV-A2-Perspective-Warping](./CV-A2-Perspective-Warping/) | Assignment | Homography and perspective warp transforms |
 | [CV-A3-Edge-Detection-Feature-Extraction](./CV-A3-Edge-Detection-Feature-Extraction/) | Assignment | Spatial filtering, Sobel/Canny edge detection |
 | [CV-Final-Image-Colorization](./CV-Final-Image-Colorization/) ⭐ | **Final Project** | Automatic colorization with novel SPCR metric — ResNet-18, DeepLabV3, PyTorch |
+| [Lectures](./Lectures/) | Course Material | 19 lecture PDFs covering the full CV curriculum |

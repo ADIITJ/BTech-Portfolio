@@ -20,8 +20,10 @@
 | 8 | [Machine Learning for Economics](#8-machine-learning-for-economics--y4) | Y4 | Regression, Credit Risk, Causal Inference, ATE/CATE |
 | 9 | [Autonomous Systems](#9-autonomous-systems--y4) | Y4 | Path Planning, Particle Filter SLAM |
 | 10 | [Advanced Machine Learning](#10-advanced-machine-learning--y4) | Y4 | Coursework |
-| 11 | [B.Tech Final Project (BTP)](#11-btech-final-project-btp) | Y4 | Table QA + Knowledge Graph Augmentation |
-| 12 | [Independent Projects](#12-independent-projects) | — | RAG Implementation |
+| 11 | [Natural Language Understanding (NLU)](#11-natural-language-understanding-nlu--y4) | Y4 | Lecture slides |
+| 12 | [Smart Product Design](#12-smart-product-design--y4) | Y4 | First-Aid AI edge pipeline |
+| 13 | [B.Tech Final Project (BTP)](#13-btech-final-project-btp) | Y4 | Table QA + Knowledge Graph Augmentation |
+| 14 | [Independent Projects](#14-independent-projects) | — | RAG Implementation |
 
 ---
 
@@ -150,7 +152,27 @@
 
 ---
 
-## 11. B.Tech Final Project (BTP)
+## 11. Natural Language Understanding (NLU) · Y4
+
+**Course focus:** Semantic representations, sentiment analysis, deep learning for NLP.
+
+| Folder | Type | Description |
+|---|---|---|
+| [Lectures](./Y4_NLU/Lectures/) | Course Material | Lecture slides — sentiment analysis (Mar 2025), meaning vectors (Apr 2025) |
+
+---
+
+## 12. Smart Product Design · Y4
+
+**Course focus:** Embedded intelligence, edge AI, real-world system design and deployment.
+
+| Project | Description | Tech |
+|---|---|---|
+| [First-Aid-AI](./Y4_Smart-Product-Design/First-Aid-AI/) ⭐ | Real-time sports injury detection with 4-stage edge pipeline — YOLO detection, H.264 clip capture, multimodal LLM analysis, MQTT dispatch + SMS alerts | YOLOv11n, OpenCV, Qwen3.5-9B, Gemini, MinIO, ChromaDB, MQTT, SQLite |
+
+---
+
+## 13. B.Tech Final Project (BTP)
 
 **Domain:** Natural Language Processing / Knowledge Graphs / Multi-Agent Systems
 
@@ -194,7 +216,7 @@ Agent            Agent (Wikidata QIDs)
 
 ---
 
-## 12. Independent Projects
+## 14. Independent Projects
 
 | Project | Description | Tech |
 |---|---|---|
@@ -212,5 +234,6 @@ Agent            Agent (Wikidata QIDs)
 | Computer Graphics | PyOpenGL, GLSL, ImGUI, GLFW, pyrr |
 | Systems / Networking | C++11, ONNX Runtime, CMake, OpenMP, TCP sockets, psutil |
 | Web / Data | Python (Flask, Streamlit), MongoDB, SQLite, Docker |
-| Infrastructure | asyncio, Pydantic, NetworkX, Redis, Git |
+| Infrastructure | asyncio, Pydantic, NetworkX, Redis, MinIO, MQTT, SQLite, ChromaDB, Git |
 | Causal Inference | causalml, statsmodels, DiD, RDD, meta-learners |
+| Edge AI | YOLOv11n, ByteTrack, Qwen3.5-9B, Gemini, ONNX Runtime |
